@@ -1,5 +1,5 @@
-const validator = require('./validator.js')
-  
+const Validator = require('./validator.js')
+const validator = new Validator();
 describe('getValidPassports', () => {
   test('Returns the amount of valid passports', () => {
   const passports = 
