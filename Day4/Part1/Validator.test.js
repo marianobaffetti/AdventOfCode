@@ -1,5 +1,9 @@
-const Validator = require('./validator.js')
+const Validator = require('./Validator.js');
+const PassportValidator = require('./PassportValidator.js');
+
 const validator = new Validator();
+const passportValidator = new PassportValidator();
+
 describe('getValidPassports', () => {
   test('Returns the amount of valid passports', () => {
   const passports = 
@@ -71,7 +75,7 @@ describe('validatePassport', () => {
       iyr: "2017"
     }
 
-    expect(validator.passportIsValid(validPassport)).toBe(true);
+    expect(passportValidator.invoke(validPassport)).toBe(true);
   });
   test('False when passport is invalid', () => {
     invalidPassport = {
@@ -86,7 +90,7 @@ describe('validatePassport', () => {
       iyr: "2017"
     }
 
-    expect(validator.passportIsValid(invalidPassport)).toBe(false);
+    expect(passportValidator.invoke(invalidPassport)).toBe(false);
   });
 })
 

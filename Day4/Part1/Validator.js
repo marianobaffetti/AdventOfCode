@@ -1,5 +1,7 @@
-class Validator {
+const PassportValidator = require('./PassportValidator');
+const passportValidator = new PassportValidator();
 
+class Validator {
   isANumber(iyr) {
     return parseInt(iyr) !== NaN;
   }
@@ -24,31 +26,13 @@ class Validator {
 
   getValidPassports (input) {
     return this.getPassportsAsString(input).reduce((acum, current) => {
-      this.passportIsValid(this.parsePassport(current)) && acum++;
+      passportValidator.invoke(this.parsePassport(current)) && acum++;
       return acum;
     }, 0);
   }
 
   getPassportsAsString (passports) {
     return passports.split('\n\n');
-  }
-
-  passportIsValid (passport) {
-    if (!passport.byr)
-      return false;
-    if (!passport.iyr)
-      return false;
-    if (!passport.eyr)
-      return false;
-    if (!passport.hgt)
-      return false;
-    if (!passport.hcl)
-      return false;
-    if (!passport.ecl)
-      return false;
-    if (!passport.pid)
-      return false;
-    return true;
   }
 }
 module.exports = Validator;
