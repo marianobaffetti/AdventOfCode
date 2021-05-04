@@ -1,15 +1,35 @@
-class Solution {
-    santaGoTo(directions) {
-        let floor = 0;
-        [...directions].forEach(direction => {
-            if(direction == '('){
-                floor++;
-            } else {
-                floor--;
-            }
+class Santa {
 
-        });
-        return floor;
+    constructor() {
+        this.floor = 0;
     }
+
+    goTo(directions) {
+        [...directions].forEach(direction => this.move(direction));
+
+        return this.floor;
+    }
+
+    move(direction) {
+        if(direction == '('){
+            this.floor++;
+        } else {
+            this.floor--;
+        }
+    }
+
+    firstPositionToBasement(directions) {
+        let counter = 0;
+
+        [...directions].find((direction, index) => {
+            this.move(direction);
+
+            counter = index + 1;
+            return this.floor === -1;
+        })
+
+        return counter;
+    }
+    
 }
-module.exports = Solution;
+module.exports = Santa;
